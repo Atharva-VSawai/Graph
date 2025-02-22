@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class bfsgraphdisjoint {
+public class dfsbfs {
     static class Edge{
         int src;
         int dest;
@@ -55,17 +55,30 @@ public class bfsgraphdisjoint {
         }
     }
 
+    public static void dfs(ArrayList<Edge> graph[],int curr, boolean vis[]){
+        System.out.print(curr+" ");
+        vis[curr] = true;
+
+        for(int i = 0; i<graph[curr].size(); i++){
+            Edge e = graph[curr].get(i);
+            if(vis[e.dest] == false){
+                dfs(graph, e.dest, vis);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         int v = 7;
         ArrayList<Edge>graph[] = new ArrayList[v];
         createGraph(graph);
 
         boolean vis[] = new boolean[v];
-        for(int i = 0; i<v; i++){
-            if(vis[i] == false){
-                bfs(graph, v, vis, i);
-            }
-        }
+        // for(int i = 0; i<v; i++){
+        //     if(vis[i] == false){
+        //         bfs(graph, v, vis, i);
+        //     }
+        // }
+        dfs(graph, 0, vis);
         System.out.println();
     }
     
